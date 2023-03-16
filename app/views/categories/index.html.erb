@@ -1,0 +1,27 @@
+<div class="card shadow mb-4">
+    <div class="card body">
+        <div class="table-responsive">
+            <table id='categorytable' class="table table-bordered" width="100">
+                <thead>
+                    <tr>   
+                        <th>Nombre Categoria</th>
+                        <th>Descripcion</th>
+                        <th>Accion a realizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @categories.each do |cat| %>
+                        <tr id="Category_<%= cat.id %>" >
+                            <td><%= cat.name %></td>
+                            <td><%= cat.description %></td>
+                            <td>
+                            <%= link_to "Editar", edit_category_path(cat), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+                            <%= link_to "Borrar", cat, remote: true, method: :delete, data: {confirm: "Desea borrar la categoria #{cat.name}?"}, class: "btn btn-danger btn-xs" %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
