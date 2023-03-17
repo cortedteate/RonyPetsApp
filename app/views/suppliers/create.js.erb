@@ -1,4 +1,4 @@
 $('#modalSuppliers').modal('toggle');
 $('#tableSuppliers').append(
-    '<tr id="supplier_<%= @supplier.id %>" ><td><%= @supplier.name %></td><td><%= @supplier.address %></td><td><%= @supplier.phone %></td><td><%= @supplier.seller %></td><td><%= link_to 'Editar', edit_supplier_path(@supplier), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @supplier, remote: true, method: :delete, data: { confirm: "¿Borrar proveedor: #{@supplier.name}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+    '<tr id="supplier_<%= @supplier.id %>" ><td style="vertical-align: middle"><%= @supplier.name %></td><td style="vertical-align: middle"><%= @supplier.address %></td><td><%= @supplier.phone %></td><td style="vertical-align: middle"><%= @supplier.seller %></td><td style="vertical-align: middle"><%= link_to 'Editar', edit_supplier_path(@supplier), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @supplier, remote: true, method: :delete, data: { confirm: "¿Borrar proveedor: #{@supplier.name}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
 );

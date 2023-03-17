@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_15_220502) do
+ActiveRecord::Schema.define(version: 2023_03_16_232720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,16 +32,16 @@ ActiveRecord::Schema.define(version: 2023_03_15_220502) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.string "decription"
+    t.string "description"
     t.integer "existence"
     t.decimal "price"
     t.string "image"
-    t.bigint "categories_id"
-    t.bigint "suppliers_id"
+    t.bigint "category_id"
+    t.bigint "supplier_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["categories_id"], name: "index_products_on_categories_id"
-    t.index ["suppliers_id"], name: "index_products_on_suppliers_id"
+    t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["supplier_id"], name: "index_products_on_supplier_id"
   end
 
   create_table "sales", force: :cascade do |t|
@@ -66,9 +66,11 @@ ActiveRecord::Schema.define(version: 2023_03_15_220502) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -84,8 +86,8 @@ ActiveRecord::Schema.define(version: 2023_03_15_220502) do
     t.index ["supplier_id"], name: "index_warehouse_records_on_supplier_id"
   end
 
-  add_foreign_key "products", "categories", column: "categories_id"
-  add_foreign_key "products", "suppliers", column: "suppliers_id"
+  add_foreign_key "products", "categories"
+  add_foreign_key "products", "suppliers"
   add_foreign_key "warehouse_records", "products", column: "products_id"
   add_foreign_key "warehouse_records", "suppliers"
 end

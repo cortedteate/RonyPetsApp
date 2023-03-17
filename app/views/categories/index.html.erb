@@ -21,9 +21,9 @@
                 <tbody>
                     <% @categories.each do |cat| %>
                         <tr id="category_<%= cat.id %>" >
-                            <td><%= cat.name %></td>
-                            <td><%= cat.description %></td>
-                            <td>
+                            <td style="vertical-align: middle"><%= cat.name %></td>
+                            <td style="vertical-align: middle"><%= cat.description %></td>
+                            <td style="vertical-align: middle">
                             <%= link_to "Editar", edit_category_path(cat), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                             <%= link_to "Borrar", cat, remote: true, method: :delete, data: {confirm: "Desea borrar la categoria #{cat.name}?"}, class: "btn btn-danger btn-xs" %>
                             </td>

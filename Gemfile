@@ -68,3 +68,9 @@ gem 'devise'
 gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'font_awesome5_rails'
+
+# CarrierWave for upload content
+gem 'carrierwave', '~> 2.0'
+
+# AWS S3
+gem "fog-aws"
