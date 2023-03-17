@@ -22,10 +22,10 @@
                 <tbody>
                     <% @clients.each do |client| %>
                         <tr id="client_<%= client.id %>" >
-                            <td><%= client.name %></td>
-                            <td><%= client.address %></td>
-                            <td><%= client.phone %></td>
-                            <td>
+                            <td style="vertical-align: middle"><%= client.name %></td>
+                            <td style="vertical-align: middle"><%= client.address %></td>
+                            <td style="vertical-align: middle"><%= client.phone %></td>
+                            <td style="vertical-align: middle">
                             <%= link_to "Editar", edit_client_path(client), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                             <%= link_to "Borrar", client, remote: true, method: :delete, data: {confirm: "Desea borrar el cliente #{client.name}?"}, class: "btn btn-danger btn-xs" %>
                             </td>

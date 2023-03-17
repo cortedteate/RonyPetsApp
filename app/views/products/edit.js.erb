@@ -1,0 +1,8 @@
+// Add the dialog title
+$('#modal-products-title').html("Editar producto");
+ 
+// Render the new form
+$('.modal-body-products').html('<%= j render("form") %>');
+ 
+// Show the dynamic dialog
+$('#modalProducts').modal("show");
