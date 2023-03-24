@@ -74,3 +74,6 @@ gem 'carrierwave', '~> 2.0'
 
 # AWS S3
 gem "fog-aws"
+
+# Foreman
+gem 'foreman'
