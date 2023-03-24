@@ -1,0 +1,8 @@
+// Add the dialog title
+$('#modal-pets-title').html("Nueva mascota");
+ 
+// Render the new form
+$('.modal-body-pets').html('<%= j render("form") %>');
+ 
+// Show the dynamic dialog
+$('#modalPets').modal("show");

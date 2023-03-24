@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_16_232720) do
+ActiveRecord::Schema.define(version: 2023_03_18_151234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,21 @@ ActiveRecord::Schema.define(version: 2023_03_16_232720) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pets", force: :cascade do |t|
+    t.string "name"
+    t.string "kind"
+    t.string "breed"
+    t.string "age"
+    t.integer "duration"
+    t.date "last_purchase"
+    t.bigint "product_id"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_pets_on_client_id"
+    t.index ["product_id"], name: "index_pets_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -86,6 +101,8 @@ ActiveRecord::Schema.define(version: 2023_03_16_232720) do
     t.index ["supplier_id"], name: "index_warehouse_records_on_supplier_id"
   end
 
+  add_foreign_key "pets", "clients", on_delete: :cascade
+  add_foreign_key "pets", "products"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "suppliers"
   add_foreign_key "warehouse_records", "products", column: "products_id"
