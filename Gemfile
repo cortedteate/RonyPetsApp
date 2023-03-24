@@ -77,3 +77,6 @@ gem "fog-aws"
 
 # Foreman
 gem 'foreman'
+
+# Honeybadger
+gem 'honeybadger'

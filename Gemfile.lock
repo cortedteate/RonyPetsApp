@@ -121,6 +121,7 @@ GEM
     formatador (1.1.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    honeybadger (5.2.1)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -286,6 +287,7 @@ DEPENDENCIES
   fog-aws
   font_awesome5_rails
   foreman
+  honeybadger
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
