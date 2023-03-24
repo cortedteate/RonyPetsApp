@@ -1,2 +1,2 @@
 web: rails server
-reease: bundle exec rake db:migrate
+release: bundle exec rake db:migrate
