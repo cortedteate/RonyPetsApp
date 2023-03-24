@@ -61,4 +61,12 @@ Rails.application.configure do
 
   # Devise recommendation for development
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+
+  config.assets.precompile += %w( '.svg' )  
+
+  # Must include to get inline SVGs to work in deploy
+  config.assets.css_compressor = :sass
+
+
 end

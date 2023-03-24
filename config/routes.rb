@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :suppliers
   resources :products
+  resources :pets
 
 
 
