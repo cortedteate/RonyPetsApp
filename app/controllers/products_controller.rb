@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
     before_action :set_product, only: [:edit, :update, :destroy]
-    before_action :set_categories, only: [:new, :edit]
-    before_action :set_suppliers, only: [:new, :edit]
+    before_action :set_categories, only: [:edit, :update, :new, :create]
+    before_action :set_suppliers, only: [:edit, :update, :new, :create]
 
     def index
         @products = Product.all.order(:id)
