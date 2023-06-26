@@ -1,0 +1,102 @@
+<%= form_for @pet, { remote: true, multipart: true } do |f| %>
+    <div class="form-group">
+        <h4 class="control-label">Cuentanos sobre tu mascota!</h4>
+    </div>
+
+    <div class="item form-group<%= @pet.errors[:name].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :name, "Nombre de la mascota: "%>
+        <div class="input-group">
+            <%= f.text_field :name, {:class=>"form-control", :placeholder=>"Introduzca el nombre de la mascota"} %>
+            <% if @pet.errors[:name].any? %>
+                <p class="bg-danger"><%= @pet.errors[:name].to_s[/\w([^"]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @pet.errors[:kind].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :kind, "Tipo de mascota: "%>
+        <div class="input-group">
+            <%= f.text_field :kind, {:class=>"form-control", :placeholder=>"Introduzca el tipo de mascota"} %>
+            <% if @pet.errors[:kind].any? %>
+                <p class="bg-danger"><%= @pet.errors[:kind].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @pet.errors[:breed].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :breed, "Raza: "%>
+        <div class="input-group">
+            <%= f.text_field :breed, {:class=>"form-control", :placeholder=>"Raza"} %>
+            <% if @pet.errors[:breed].any? %>
+                <p class="bg-danger"><%= @pet.errors[:breed].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @pet.errors[:age].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :age, "Edad: "%>
+        <div class="input-group">
+            <%= f.text_field :age, {:class=>"form-control", :placeholder=>"Introduzca la edad de la mascota"} %>
+            <% if @pet.errors[:age].any? %>
+                <p class="bg-danger"><%= @pet.errors[:age].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @pet.errors[:duration].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :duration, "Duracion: "%>
+        <div class="input-group">
+            <%= f.number_field :duration, {:class=>"form-control", :placeholder=>"Cuanto le dura el alimento"} %>
+            <% if @pet.errors[:duration].any? %>
+                <p class="bg-danger"><%= @pet.errors[:duration].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @pet.errors[:last_purchase].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :last_purchase, "Ultima compra: "%>
+        <div class="input-group">
+            <%= f.date_field :last_purchase, {:class=>"form-control", :placeholder=>"Introduzca fecha de ultima compra"} %>
+            <% if @pet.errors[:last_purchase].any? %>
+                <p class="bg-danger"><%= @pet.errors[:last_purchase].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+ 
+    <div class="item form-group<%= @pet.errors[:product_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :product_id, "Producto: "%>
+        <div class="input-group">
+            <%= collection_select(:pet, :product_id, @products, :id, :name, {:prompt => 'Seleccione un producto'}, { class: "form-control" }) %>
+            <% if @pet.errors[:product_id].any? %>
+                <p class="bg-danger"><%= @pet.errors[:product_id].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @pet.errors[:client_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :client_id, "Cliente: "%>
+        <div class="input-group">
+            <% if @pet.new_record? %>
+                <%= collection_select(:pet, :client_id, @clients, :id, :name, {:prompt => 'Seleccione un cliente'}, { class: "form-control" }) %>
+            <% else %>
+                <%= collection_select(:pet, :client_id, @clients.where(:id => @pet.client_id), :id, :name, {:prompt => 'Seleccione un cliente'}, { class: "form-control" }) %>    
+            <% end %>
+            
+            <% if @pet.errors[:client_id].any? %>
+                <p class="bg-danger"><%= @pet.errors[:client_id].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+
+    <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+        <%= f.submit @pet.new_record? ? "Crear mascota" : "Actualizar mascota", :class => "btn btn-success"%>
+
+        <% unless @pet.new_record? %>
+        <%= link_to "Borrar mascota", @pet, remote: true, method: :delete, data: {confirm: "Desea borrar la mascota #{@pet.name}?"}, class: "btn btn-danger btn-xs" %>
+        <% end %>
+    </div>
+
+    
+
+<% end %>
