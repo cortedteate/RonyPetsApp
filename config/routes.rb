@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :suppliers
   resources :products
   resources :pets
+  resources :inventory
 
 
 

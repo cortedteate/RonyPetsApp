@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
     before_action :set_client, only: [:edit, :update, :destroy]
     before_action :set_pets, only: [:index, :edit, :update, :destroy]
 
-    def index
+      def index
         @clients = Client.all.order(:id)
       end
     

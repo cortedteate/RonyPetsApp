@@ -53,4 +53,7 @@
     e.preventDefault();
   });
 
+  // Sort table
+  $('#sortTable').DataTable();
+
 })(jQuery); // End of use strict
