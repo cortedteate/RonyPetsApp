@@ -2,7 +2,8 @@
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "user"}) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
   <div class="form-group">
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-user", placeholder:"Correo...."%>
   </div>
