@@ -30,7 +30,7 @@
                             <td style="vertical-align: middle"><%= product.name %></td>
                             <td style="vertical-align: middle"><%= product.description%></td>
                             <td style="vertical-align: middle"><%= product.existence %></td>
-                            <td style="vertical-align: middle">$<%= product.price %></td>  
+                            <td style="vertical-align: middle">$<%= product.price.to_i %></td>  
                             <td style="vertical-align: middle"><%= product.category != nil ? product.category.name : "Vacio" %></td>
                             <td style="vertical-align: middle"><%= product.supplier != nil ? product.supplier.name : "Vacio" %></td>
                             <td style="vertical-align: middle">

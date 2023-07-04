@@ -1,0 +1,51 @@
+<%= form_for @quantity, remote: true do |f| %>
+    <div class="form-group">
+        <h4 class="control-label">Configurar cantidades recomendadas</h4>
+    </div>
+
+    <div class="item form-group<%= @quantity.errors[:size_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :size_id, "Nombre: "%>
+        <div class="input-group">
+            <%= collection_select(:quantity, :size_id, @sizes, :id, :name, {:prompt => 'Seleccione un tamaño'}, { class: "form-control" }) %>
+            <% if @quantity.errors[:size_id].any? %>
+                <p class="bg-danger"><%= @quantity.errors[:size_id].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @quantity.errors[:phase].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :phase, "Fase: "%>
+        <div class="input-group">
+            <%= f.text_field :phase, {:class=>"form-control", :placeholder=>"Fase"} %>
+            <% if @quantity.errors[:phase].any? %>
+                <p class="bg-danger"><%= @quantity.errors[:phase].to_s[/\w([^"]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @quantity.errors[:age].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :age, "Edad: "%>
+        <div class="input-group">
+            <%= f.text_field :age, {:class=>"form-control", :placeholder=>"Edad"} %>
+            <% if @quantity.errors[:age].any? %>
+                <p class="bg-danger"><%= @quantity.errors[:age].to_s[/\w([^"]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+
+    <div class="item form-group<%= @quantity.errors[:quantity].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :quantity, "Cantidad recomendada: "%>
+        <div class="input-group">
+            <%= f.number_field :quantity, {:class=>"form-control", :placeholder=>"Cantidad recomendada"} %>
+            <% if @quantity.errors[:quantity].any? %>
+                <p class="bg-danger"><%= @quantity.errors[:quantity].to_s[/\w([^"]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+        <%= f.submit @quantity.new_record? ? "Crear" : "Actualizar", :class => "btn btn-success"%>
+    </div>
+
+<% end %>

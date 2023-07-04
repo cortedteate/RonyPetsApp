@@ -32,7 +32,7 @@
                                 <%= link_to pet.name, edit_pet_path(pet), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                                 <% end %> 
 
-                                <%= link_to new_pet_path, {remote: true, class: "btn btn-info", id: "add-cat-btn"} do %>
+                                <%= link_to client_new_pet_path(client), {remote: true, class: "btn btn-info", id: "add-cat-btn"} do %>
                                 <span class="fas fa-plus-square"></span>
                                 <% end %>                               
                             </td>

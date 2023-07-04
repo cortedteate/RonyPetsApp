@@ -1,0 +1,56 @@
+$(document).ready(function() {
+  // Set the dialog title
+  $('#modal-pets-title').html("Nueva mascota");
+
+  // Render the new form
+  $('.modal-body-pets').html('<%= j render("form") %>');
+
+  // Show the dynamic dialog
+  $('#modalPets').modal("show");
+
+// Ajax request to populate the phase select based on kind selection
+  $('#kind-select').change(function() {
+    var selectedKindId = $(this).val();
+    console.log(selectedKindId)
+    var url = '/pets/' + selectedKindId + '/kinds';
+    $.ajax({
+      url: url,
+      method: 'GET',
+      data: { kind_id: selectedKindId },
+      dataType: 'json',
+      success: function(data) {
+        var options = '';
+        $.each(data, function(index, breed) {
+          options += '<option value="' + breed.id + '">' + breed.name + '</option>';
+        });
+        $('#breed-select').html(options);
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
+    });
+  });
+
+  // Ajax request to populate the phase select based on breed selection
+  $('#breed-select').change(function() {
+    var selectedBreedId = $(this).val();
+    var url = '/pets/' + selectedBreedId + '/phases';
+    console.log(url)
+    $.ajax({
+      url: url,
+      method: 'GET',
+      data: { breed_id: selectedBreedId },
+      dataType: 'json',
+      success: function(data) {
+        var options = '';
+        $.each(data, function(index, phase) {
+          options += '<option value="' + phase.phase + '">' + phase.phase + ' ' + phase.age + '</option>';
+        });
+        $('#phase-select').html(options);
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
+    });
+  });
+});

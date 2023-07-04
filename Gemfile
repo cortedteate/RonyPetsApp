@@ -80,3 +80,6 @@ gem 'foreman'
 
 # Honeybadger
 gem 'honeybadger'
+
+# Dependent fields
+gem 'jquery-turbolinks'

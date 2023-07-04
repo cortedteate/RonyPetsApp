@@ -6,13 +6,22 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
   resources :categories
-  resources :clients
   resources :suppliers
   resources :products
-  resources :pets
   resources :inventory
+  resources :program
+  resources :sizes
+  resources :quantities
+  resources :breeds
 
-
+  resources :clients do
+    get '/new_pet', to: 'pets#new_from_client'
+  end
+  
+  resources :pets do
+    get '/phases', to: 'pets#phases'
+    get '/kinds', to: 'pets#kinds'
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

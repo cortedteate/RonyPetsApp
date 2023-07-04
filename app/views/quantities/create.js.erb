@@ -1,0 +1,4 @@
+$('#modalQuantities').modal('toggle');
+$('#tableQuantities').append(
+    '<tr id="quantity_<%= @quantity.id %>" ><td style="vertical-align: middle"><%= @quantity.size.name %></td><td style="vertical-align: middle"><%= @quantity.phase %></td><td style="vertical-align: middle"><%= @quantity.age %></td><td style="vertical-align: middle"><%= @quantity.quantity %></td><td style="vertical-align: middle"><%= link_to 'Editar', edit_quantity_path(@quantity), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @quantity, remote: true, method: :delete, data: { confirm: "¿Borrar cantidad?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);

@@ -1,0 +1,8 @@
+// Add the dialog title
+$('#modal-quantities-title').html("Editar cantidad");
+ 
+// Render the new form
+$('.modal-body-quantities').html('<%= j render("form") %>');
+ 
+// Show the dynamic dialog
+$('#modalQuantities').modal("show");

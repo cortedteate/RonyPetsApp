@@ -14,7 +14,7 @@
     </div>
 
     <div class="item form-group<%= @pet.errors[:kind].any? ? ' has-error has-feedback' : '' %> "> 
-        <%= f.label :kind, "Tipo de mascota: "%>
+        <%= f.label :kind_id, "Tipo de mascota: "%>
         <div class="input-group">
             <%= f.text_field :kind, {:class=>"form-control", :placeholder=>"Introduzca el tipo de mascota"} %>
             <% if @pet.errors[:kind].any? %>

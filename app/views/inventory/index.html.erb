@@ -1,10 +1,4 @@
 <h1 class="h3 mb-2 text-gray-800"> Planeador de Inventario</h1>
-
-<div>
-    <%= link_to new_pet_path, {remote: true, class: "btn btn-info", id: "add-cat-btn"} do %>
-    <span class="fas fa-plus-square"></span>
-    <% end %>
-</div>
 <br>
 
 <div class="card shadow mb-4" style="width:100%">
@@ -15,7 +9,7 @@
                 <th style="text-align: center">Mascota</th>
                 <th style="text-align: center">Tipo</th>
                 <th style="text-align: center">Raza</th>
-                <th style="text-align: center">Edad</th>
+                <th style="text-align: center">Fase</th>
                 <th style="text-align: center">Duración (dias)</th>
                 <th style="text-align: center">Ultima compra</th>
                 <th style="text-align: center">Producto</th>
@@ -27,9 +21,9 @@
                 <tr id="pet_<%= pet.id %>" >
                     <td style="vertical-align: middle"><%= pet.client_id != nil ? pet.client.name : "Vacio" %></td>
                     <td style="vertical-align: middle"><%= pet.name %></td>
-                    <td style="vertical-align: middle"><%= pet.kind%></td>
-                    <td style="vertical-align: middle"><%= pet.breed %></td>
-                    <td style="vertical-align: middle"><%= pet.age %></td>  
+                    <td style="vertical-align: middle"><%= pet.kind_id != nil ? pet.breed.kind.kind : "Vacio" %></td> 
+                    <td style="vertical-align: middle"><%= pet.breed_id != nil ? pet.breed.name : "Vacio" %></td>
+                    <td style="vertical-align: middle"><%= pet.phase %></td>
                     <td style="vertical-align: middle"><%= pet.duration %></td>  
                     <td style="vertical-align: middle"><%= pet.last_purchase %></td>  
                     <td style="vertical-align: middle"><%= pet.product_id != nil ? pet.product.name : "Vacio" %></td>  
