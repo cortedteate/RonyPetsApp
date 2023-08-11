@@ -1,0 +1,41 @@
+<h1 class="h3 mb-2 text-gray-800"> Administrar razas</h1>
+
+<div>
+    <%= link_to new_breed_path, {remote: true, class: "btn btn-info", id: "add-cat-btn"} do %>
+    <span class="fas fa-plus-square"></span>
+    <% end %>
+</div>
+<br>
+
+<div class="card shadow mb-4">
+    <div class="card body">
+        <div class="table-responsive">
+            <table id='tableBreeds' class="table table-bordered" width="100">
+                <thead>
+                    <tr>   
+                        <th>Tipo</th>
+                        <th>Nombre</th>
+                        <th>Tamaño</th>
+                        <th>Accion a realizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @breeds.each do |breed| %>
+                        <tr id="breed_<%= breed.id %>" >
+                            <td style="vertical-align: middle"><%= breed.kind_id != nil ? breed.kind.kind : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= breed.name %></td>
+                            <td style="vertical-align: middle"><%= breed.size_id != nil ? breed.size.name : "Vacio" %></td>
+                            <td style="vertical-align: middle">
+                            <%= link_to "Editar", edit_breed_path(breed), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+                            <%= link_to "Borrar", breed, remote: true, method: :delete, data: {confirm: "Desea borrar #{breed.name}?"}, class: "btn btn-danger btn-xs" %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%= render 'modal_breeds'%>
+

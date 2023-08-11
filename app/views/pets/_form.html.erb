@@ -13,36 +13,44 @@
         </div>
     </div>
 
-    <div class="item form-group<%= @pet.errors[:kind].any? ? ' has-error has-feedback' : '' %> "> 
-        <%= f.label :kind, "Tipo de mascota: "%>
-        <div class="input-group">
-            <%= f.text_field :kind, {:class=>"form-control", :placeholder=>"Introduzca el tipo de mascota"} %>
-            <% if @pet.errors[:kind].any? %>
-                <p class="bg-danger"><%= @pet.errors[:kind].to_s[/\w(["]*)/]%></p>
+    <div class="item form-group<%= @pet.errors[:kind_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :kind_id, "Tipo de mascota: "%>
+        <div class="input-group">       
+            <%= f.collection_select :kind_id, @kinds, :id, :kind, { prompt: "Seleccione la mascota" }, { id: 'kind-select', class:"form-control" } %>
+            <% if @pet.errors[:kind_id].any? %>
+                <p class="bg-danger"><%= @pet.errors[:kind_id].to_s[/\w(["]*)/]%></p>
             <% end %>
         </div>
     </div>
 
-    <div class="item form-group<%= @pet.errors[:breed].any? ? ' has-error has-feedback' : '' %> "> 
-        <%= f.label :breed, "Raza: "%>
+    <div class="item form-group<%= @pet.errors[:breed_id].any? ? ' has-error has-feedback' : '' %> ">
+        <%= f.label :breed_id, "Raza: "%>
         <div class="input-group">
-            <%= f.text_field :breed, {:class=>"form-control", :placeholder=>"Raza"} %>
-            <% if @pet.errors[:breed].any? %>
-                <p class="bg-danger"><%= @pet.errors[:breed].to_s[/\w(["]*)/]%></p>
+            <% if @pet.breed_id == nil %>
+                <%= f.collection_select :breed_id, [], :id, :name, { prompt: "Seleccione la fase" }, { id: 'breed-select', class:"form-control" } %>
+            <% else %>
+                <%= f.collection_select :breed_id, @breeds.where(kind_id: @pet.kind_id), :id, :name, { prompt: "Seleccione la raza" }, { id: 'breed-select', class:"form-control" } %>
+            <% end %>
+            <% if @pet.errors[:breed_id].any? %>
+                <p class="bg-danger"><%= @pet.errors[:breed_id].to_s[/\w(["]*)/]%></p>
             <% end %>
         </div>
     </div>
 
-    <div class="item form-group<%= @pet.errors[:age].any? ? ' has-error has-feedback' : '' %> "> 
-        <%= f.label :age, "Edad: "%>
+    <div class="item form-group<%= @pet.errors[:phase].any? ? ' has-error has-feedback' : '' %> ">
+        <%= f.label :phase, "Fase: "%>
         <div class="input-group">
-            <%= f.text_field :age, {:class=>"form-control", :placeholder=>"Introduzca la edad de la mascota"} %>
-            <% if @pet.errors[:age].any? %>
-                <p class="bg-danger"><%= @pet.errors[:age].to_s[/\w(["]*)/]%></p>
+            <% if @pet.size_id == nil %>
+                <%= f.collection_select :phase, [], :phase, :age, { prompt: "Seleccione la fase" }, { id: 'phase-select', class:"form-control" } %>
+            <% else %>
+                <%= f.collection_select :phase, @quantities.where(size_id: @pet.size_id), :phase, :age, { prompt: "Seleccione la raza" }, { id: 'phase-select', class:"form-control" } %>
+            <% end %>
+            <% if @pet.errors[:phase].any? %>
+                <p class="bg-danger"><%= @pet.errors[:phase].to_s[/\w(["]*)/]%></p>
             <% end %>
         </div>
     </div>
-
+    
     <div class="item form-group<%= @pet.errors[:duration].any? ? ' has-error has-feedback' : '' %> "> 
         <%= f.label :duration, "Duracion: "%>
         <div class="input-group">
@@ -56,7 +64,7 @@
     <div class="item form-group<%= @pet.errors[:last_purchase].any? ? ' has-error has-feedback' : '' %> "> 
         <%= f.label :last_purchase, "Ultima compra: "%>
         <div class="input-group">
-            <%= f.date_field :last_purchase, {:class=>"form-control", :placeholder=>"Introduzca fecha de ultima compra"} %>
+            <%= f.date_field :last_purchase, {:class=>"form-control", :placeholder=>"Introduzca fecha de ultima compra", :value => Time.now.strftime('%Y-%m-%d') } %>
             <% if @pet.errors[:last_purchase].any? %>
                 <p class="bg-danger"><%= @pet.errors[:last_purchase].to_s[/\w(["]*)/]%></p>
             <% end %>
@@ -76,12 +84,11 @@
     <div class="item form-group<%= @pet.errors[:client_id].any? ? ' has-error has-feedback' : '' %> "> 
         <%= f.label :client_id, "Cliente: "%>
         <div class="input-group">
-            <% if @pet.new_record? %>
+            <% if @pet.client_id == nil %>
                 <%= collection_select(:pet, :client_id, @clients, :id, :name, {:prompt => 'Seleccione un cliente'}, { class: "form-control" }) %>
             <% else %>
                 <%= collection_select(:pet, :client_id, @clients.where(:id => @pet.client_id), :id, :name, {:prompt => 'Seleccione un cliente'}, { class: "form-control" }) %>    
             <% end %>
-            
             <% if @pet.errors[:client_id].any? %>
                 <p class="bg-danger"><%= @pet.errors[:client_id].to_s[/\w(["]*)/]%></p>
             <% end %>
@@ -96,7 +103,5 @@
         <%= link_to "Borrar mascota", @pet, remote: true, method: :delete, data: {confirm: "Desea borrar la mascota #{@pet.name}?"}, class: "btn btn-danger btn-xs" %>
         <% end %>
     </div>
-
-    
 
 <% end %>

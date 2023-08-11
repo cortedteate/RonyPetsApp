@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_18_151234) do
+ActiveRecord::Schema.define(version: 2023_08_11_070407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "breeds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "size_id"
+    t.bigint "kind_id"
+    t.index ["kind_id"], name: "index_breeds_on_kind_id"
+    t.index ["size_id"], name: "index_breeds_on_size_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -30,19 +40,29 @@ ActiveRecord::Schema.define(version: 2023_03_18_151234) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "kinds", force: :cascade do |t|
+    t.string "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pets", force: :cascade do |t|
     t.string "name"
-    t.string "kind"
-    t.string "breed"
-    t.string "age"
     t.integer "duration"
     t.date "last_purchase"
     t.bigint "product_id"
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "breed_id"
+    t.string "phase"
+    t.bigint "size_id"
+    t.bigint "kind_id"
+    t.index ["breed_id"], name: "index_pets_on_breed_id"
     t.index ["client_id"], name: "index_pets_on_client_id"
+    t.index ["kind_id"], name: "index_pets_on_kind_id"
     t.index ["product_id"], name: "index_pets_on_product_id"
+    t.index ["size_id"], name: "index_pets_on_size_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -59,11 +79,28 @@ ActiveRecord::Schema.define(version: 2023_03_18_151234) do
     t.index ["supplier_id"], name: "index_products_on_supplier_id"
   end
 
+  create_table "quantities", force: :cascade do |t|
+    t.string "phase"
+    t.string "age"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "size_id"
+    t.index ["size_id"], name: "index_quantities_on_size_id"
+  end
+
   create_table "sales", force: :cascade do |t|
     t.integer "user_id"
     t.decimal "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sizes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "weight"
   end
 
   create_table "suppliers", force: :cascade do |t|
@@ -86,6 +123,7 @@ ActiveRecord::Schema.define(version: 2023_03_18_151234) do
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
     t.string "image"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -101,10 +139,16 @@ ActiveRecord::Schema.define(version: 2023_03_18_151234) do
     t.index ["supplier_id"], name: "index_warehouse_records_on_supplier_id"
   end
 
+  add_foreign_key "breeds", "kinds"
+  add_foreign_key "breeds", "sizes"
+  add_foreign_key "pets", "breeds"
   add_foreign_key "pets", "clients", on_delete: :cascade
+  add_foreign_key "pets", "kinds"
   add_foreign_key "pets", "products"
+  add_foreign_key "pets", "sizes"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "suppliers"
+  add_foreign_key "quantities", "sizes"
   add_foreign_key "warehouse_records", "products", column: "products_id"
   add_foreign_key "warehouse_records", "suppliers"
 end

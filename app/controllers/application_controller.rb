@@ -1,14 +1,16 @@
 class ApplicationController < ActionController::Base
-    before_action :authenticate_user!
+    # before_action :authenticate_user!
 
     layout :layout_by_resource
 
     private
 
     def layout_by_resource 
-        if devise_controller?
+        if user_signed_in?
+            current_user.try(:admin?) ? "adminportal" : "portal"
+        elsif devise_controller?
             "devise"
-        else
+        else 
             "application"
         end
     end

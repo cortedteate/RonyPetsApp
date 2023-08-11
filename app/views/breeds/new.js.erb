@@ -1,0 +1,8 @@
+// Add the dialog title
+$('#modal-breeds-title').html("Nuevo tamaño");
+ 
+// Render the new form
+$('.modal-body-breeds').html('<%= j render("form") %>');
+ 
+// Show the dynamic dialog
+$('#modalBreeds').modal("show");

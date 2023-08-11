@@ -15,7 +15,7 @@ class ClientsController < ApplicationController
     
       def create
         @client = Client.new(client_params)
-    
+        p @client
         respond_to do |format|
           if @client.save 
             format.json { head :no_content }

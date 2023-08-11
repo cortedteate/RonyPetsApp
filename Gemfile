@@ -65,7 +65,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 
 # Gems for boostrap theme template
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.6.0'
 gem 'jquery-rails'
 gem 'font_awesome5_rails'
 
@@ -80,3 +80,6 @@ gem 'foreman'
 
 # Honeybadger
 gem 'honeybadger'
+
+# Dependent fields
+gem 'jquery-turbolinks'

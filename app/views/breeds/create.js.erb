@@ -1,0 +1,4 @@
+$('#modalBreeds').modal('toggle');
+$('#tableBreeds').append(
+    '<tr id="breed_<%= @breed.id %>"><td style="vertical-align: middle"><%= @breed.kind.kind %></td><td style="vertical-align: middle"><%= @breed.name %></td><td style="vertical-align: middle"><%= @breed.size.name %></td><td style="vertical-align: middle"><%= link_to 'Editar', edit_breed_path(@breed), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @breed, remote: true, method: :delete, data: { confirm: "¿Borrar raza: #{@breed.name}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);

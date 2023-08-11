@@ -14,7 +14,9 @@
 //= require popper
 //= require bootstrap
 //= require sb-admin-2.min
+//= require scripts
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require jquery.turbolinks
 //= require_tree .

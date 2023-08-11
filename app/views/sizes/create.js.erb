@@ -1,0 +1,4 @@
+$('#modalSizes').modal('toggle');
+$('#tableSizes').append(
+    '<tr id="size_<%= @size.id %>" ><td style="vertical-align: middle"><%= @size.name %></td><td style="vertical-align: middle"><%= @size.weight %></td><td style="vertical-align: middle"><%= link_to 'Editar', edit_size_path(@size), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @size, remote: true, method: :delete, data: { confirm: "¿Borrar tamaño: #{@size.name}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);

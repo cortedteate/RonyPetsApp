@@ -53,4 +53,31 @@
     e.preventDefault();
   });
 
+// ajax request
+$(document).ready(function() {
+  $('#breed-select').on('change', function() {
+    var selectedBreedId = $(this).val();
+    var url = '/pets/' + selectedBreedId + '/phases';
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        // Populate the options of the second dropdown
+        var phaseSelect = $('#phase-select');
+        phaseSelect.empty();
+
+        $.each(response, function(index, phase) {
+          phaseSelect.append($('<option></option>').val(phase.id).text(phase.name));
+        });
+      },
+      error: function(xhr, status, error) {
+        // Handle any errors here
+        console.error(error);
+      }
+    });
+  });
+});
+
 })(jQuery); // End of use strict
