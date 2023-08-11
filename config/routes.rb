@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   
+  get 'portals/index'
+  root to: 'home#index'
+
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
 
-  root to: 'home#index'
   resources :categories
   resources :suppliers
   resources :products
