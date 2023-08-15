@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pet: one
+  product: one
+  quantity: one
+  frecuency: 1
+  user: one
+
+two:
+  pet: two
+  product: two
+  quantity: two
+  frecuency: 1
+  user: two

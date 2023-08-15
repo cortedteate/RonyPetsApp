@@ -26,7 +26,7 @@
                 <!-- Navbar -->
                 <nav class="navbar navbar-expand-lg navbar-dark bg-info topbar sticky-top shadow">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="">
+                        <a class="navbar-brand" href="<%=root_path%>">
                             <img src="https://ronypetsproducts.s3.amazonaws.com/logo.jpg" width="50" height="50" class="d-inline-block align-center rounded-circle" alt="">
                             Rony Pets
                         </a>
@@ -79,14 +79,14 @@
                 </style>
 
                 <!-- Background image -->
-                <div id="intro-example"class="p-5 bg-image"
+                <!-- <div id="intro-example"class="p-5 bg-image"
                     style="
                     background-image: url('https://ronypetsproducts.s3.amazonaws.com/theme.jpg');
                     background-size: cover;
-                    background-position: center;">
-                    
+                    background-position: center;"> -->
+                <div class="containter-fluid">
+                    <div class="mb-4"></div>
                     <%= yield %>
-
                 </div>
                 <!-- Background image -->
               <!-- /.container-fluid -->

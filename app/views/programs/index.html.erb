@@ -1,0 +1,58 @@
+<!-- Begin Page Content -->
+<div class="mb-4"></div>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Rony Pets Food Planner</h1>
+        <%= link_to new_program_path, {remote: true, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm", id: "add-cat-btn"} do %>
+            <i class="fas fa-user fa-sm text-white-50"></i> Crea un plan de alimento programado</a>
+        <% end %>
+    </div>
+
+    <div class="card shadow mb-4" style="margin-left: 20px; margin-right: 20px;">
+        <div class="card body">
+            <div class="table-responsive">
+                <table id='tablePrograms' class="table table-bordered" width="100">
+                    <thead>
+                        <tr>   
+                            <th style="vertical-align: middle; text-align: center">Mascota</th>
+                            <th style="vertical-align: middle; text-align: center">Producto</th>
+                            <th style="vertical-align: middle; text-align: center">Cantidad diaria (gramos)</th>
+                            <th style="vertical-align: middle; text-align: center">Frecuencia de entrega (dias)</th>
+                            <th style="vertical-align: middle; text-align: center">Cantidad a entregar (kg)</th>
+                            <th style="vertical-align: middle; text-align: center">Precio final</th>
+                            <th style="vertical-align: middle; text-align: center">Fecha inicial del plan</th>
+                            <th style="vertical-align: middle; text-align: center">Fecha ultima entrega realizada</th>
+                            <th style="vertical-align: middle; text-align: center">Fecha proxima entrega</th>
+                            <th style="vertical-align: middle; text-align: center">Cliente</th>
+                            <th style="vertical-align: middle; text-align: center">Accion a realizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @programs.each do |program| %>
+                            <tr id="program_<%= program.id %>" >
+                                <td style="vertical-align: middle; text-align: center;"><%= program.pet_id != nil ? program.pet.name : "Vacio" %></td>
+                                <td style="vertical-align: middle; text-align: center;"><%= program.product_id != nil ? program.product.name : "Vacio" %></td>
+                                <td style="vertical-align: middle; text-align: center;"><%= program.quantity_id != nil ? program.quantity.quantity : "Vacio" %></td>
+                                <td style="vertical-align: middle; text-align: center;"><%= program.frecuency_id != nil ? program.frecuency.days : "Vacio" %></td>
+                                <td style="vertical-align: middle; text-align: center;"><%= ( program.quantity.quantity * program.frecuency.days ) / 1000.0 %></td>
+                                <td style="vertical-align: middle; text-align: center;">$ <%= ((( program.quantity.quantity * program.frecuency.days ) * program.product.pound_price ) / 500).to_i %></td>
+                                <td style="vertical-align: middle; text-align: center;"><%= program.initial_date != nil ? program.initial_date : "Vacio" %></td>  
+                                <td style="vertical-align: middle; text-align: center;"><%= program.delivered_date != nil ? program.delivered_date : "Vacio" %></td>  
+                                <td style="vertical-align: middle; text-align: center;"><%= program.initial_date != nil ? program.initial_date + program.frecuency.days : "Vacio" %></td>  
+                                <td style="vertical-align: middle; text-align: center;"><%= program.user_id != nil ? program.user.first_name : "Vacio" %></td>  
+                                <td style="vertical-align: middle;">
+                                <%= link_to "Editar", edit_program_path(program), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+                                <%= link_to "Cancelar", program, remote: true, method: :delete, data: {confirm: "Desea cancelar el programa?"}, class: "btn btn-danger btn-xs" %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%= render 'modal_programs'%>

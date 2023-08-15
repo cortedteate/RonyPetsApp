@@ -81,16 +81,16 @@
         </div>
     </div>
 
-    <div class="item form-group<%= @pet.errors[:client_id].any? ? ' has-error has-feedback' : '' %> "> 
-        <%= f.label :client_id, "Cliente: "%>
+    <div class="item form-group<%= @pet.errors[:user_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :user_id, "Cliente: "%>
         <div class="input-group">
-            <% if @pet.client_id == nil %>
-                <%= collection_select(:pet, :client_id, @clients, :id, :name, {:prompt => 'Seleccione un cliente'}, { class: "form-control" }) %>
-            <% else %>
-                <%= collection_select(:pet, :client_id, @clients.where(:id => @pet.client_id), :id, :name, {:prompt => 'Seleccione un cliente'}, { class: "form-control" }) %>    
-            <% end %>
-            <% if @pet.errors[:client_id].any? %>
-                <p class="bg-danger"><%= @pet.errors[:client_id].to_s[/\w(["]*)/]%></p>
+                <% if current_user.admin? %>
+                    <%= collection_select(:pet, :user_id, @clients, :id, :name, {:prompt => 'Seleccione un cliente'}, { class: "form-control" }) %>
+                <% else %>
+                    <%= collection_select(:pet, :user_id, @clients, :id, :name, { selected: @clients.first.id }, { class: "form-control", disabled: true }) %>
+                <% end %>
+            <% if @pet.errors[:user_id].any? %>
+                <p class="bg-danger"><%= @pet.errors[:user_id].to_s[/\w(["]*)/]%></p>
             <% end %>
         </div>
     </div>

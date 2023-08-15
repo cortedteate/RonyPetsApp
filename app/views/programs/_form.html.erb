@@ -1,0 +1,37 @@
+<%= form_for @program, remote: true do |f| %>
+
+    <div class="item form-group<%= @program.errors[:pet_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :pet_id, "Elige tu mascota: "%>
+        <div class="input-group">       
+            <%= f.collection_select :pet_id, @pets, :id, :name, { prompt: "Seleccione la mascota" }, { id: 'pet-select', class:"form-control" } %>
+            <% if @program.errors[:pet_id].any? %>
+                <p class="bg-danger"><%= @program.errors[:pet_id].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @program.errors[:frecuency_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :frecuency_id, "Cada cuanto deseas recibir el alimento (Dias): "%>
+        <div class="input-group">       
+            <%= f.collection_select :frecuency_id, @frecuencies, :id, :days, { prompt: "Seleccione un valor en dias" }, { id: 'frecuency-select', class:"form-control" } %>
+            <% if @program.errors[:frecuency_id].any? %>
+                <p class="bg-danger"><%= @program.errors[:frecuency_id].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @program.errors[:initial_date].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :initial_date, "Escoge la fecha en la que deseas iniciar el plan: "%>
+        <div class="input-group">
+            <%= f.date_field :initial_date, {:class=>"form-control", :placeholder=>"Introducza la fecha", :value => Time.now.strftime('%Y-%m-%d') } %>
+            <% if @program.errors[:initial_date].any? %>
+                <p class="bg-danger"><%= @program.errors[:initial_date].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+        <%= f.submit @program.new_record? ? "Crear programa" : "Actualizar programa", :class => "btn btn-success"%>
+    </div>
+
+<% end %>

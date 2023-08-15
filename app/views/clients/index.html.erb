@@ -1,10 +1,10 @@
 <h1 class="h3 mb-2 text-gray-800"> Clientes</h1>
 
-<div>
+<!-- <div>
     <%= link_to new_client_path, {remote: true, class: "btn btn-info", id: "add-cat-btn"} do %>
     <span class="fas fa-plus-square"></span>
     <% end %>
-</div>
+</div> -->
 <br>
 
 <div class="card shadow mb-4">
@@ -17,7 +17,6 @@
                         <th>Direccion</th>
                         <th>Telefono</th>
                         <th>Mascota</th>
-                        <th>Accion a realizar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,18 +27,13 @@
                             <td style="vertical-align: middle"><%= client.phone %></td>
                             <td style="vertical-align: middle">                               
                                 
-                                <% @pets.where(:client_id => client.id).each do |pet| %>
+                                <% @pets.where(:user_id => client.id).each do |pet| %>
                                 <%= link_to pet.name, edit_pet_path(pet), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                                 <% end %> 
 
                                 <%= link_to client_new_pet_path(client), {remote: true, class: "btn btn-info", id: "add-cat-btn"} do %>
                                 <span class="fas fa-plus-square"></span>
                                 <% end %>                               
-                            </td>
-                            <td style="vertical-align: middle">
-                            <%= link_to "Editar", edit_client_path(client), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-                            <%= link_to "Borrar", client, remote: true, method: :delete, data: {confirm: "Desea borrar el cliente #{client.name}?"}, class: "btn btn-danger btn-xs" %>
-                            </td>
                         </tr>
                     <% end %>
                 </tbody>

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :suppliers
   resources :products
   resources :inventory
-  resources :program
+  resources :programs
   resources :sizes
   resources :quantities
   resources :breeds
@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :pets do
     get '/phases', to: 'pets#phases'
     get '/kinds', to: 'pets#kinds'
+    get '/product', to: 'pets#product'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
