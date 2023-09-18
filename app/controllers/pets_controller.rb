@@ -1,14 +1,13 @@
 class PetsController < ApplicationController
     before_action :set_pet, only: [:edit, :update, :destroy]
-    before_action :set_kinds, only: [:new, :edit, :new_from_client]
-    before_action :set_products, only: [:new, :edit, :new_from_client]
-    before_action :set_clients, only: [:new, :edit, :new_from_client]
-    before_action :set_breeds, only: [:new, :edit, :new_from_client]
-    before_action :set_sizes, only: [:new, :edit, :new_from_client]
-    before_action :set_quantities, only: [:edit, :new_from_client]
+    before_action :set_kinds, only: [:new, :edit, :create, :new_from_client]
+    before_action :set_products, only: [:new, :edit, :create, :new_from_client]
+    before_action :set_users, only: [:new, :edit, :create, :new_from_client]
+    before_action :set_breeds, only: [:new, :edit, :create, :new_from_client]
+    before_action :set_quantities, only: [:edit, :create, :new_from_client]
 
     def index
-      current_user.admin? ? @pets = Pet.all.order(:id) : @pets = Pet.where(user_id: current_user.id)
+      current_user.admin? ? @pets = Pet.all.order(:id) : @pets = Pet.where(user_id: current_user.id).order(:id)
     end
     
     def new
@@ -19,18 +18,17 @@ class PetsController < ApplicationController
     end
   
     def create
-    @pet = Pet.new(pet_params)
-    #No se llena en el form
-    @pet.size_id = @pet.breed.size_id
-
-    respond_to do |format|
-        if @pet.save 
-          format.json { head :no_content }
-          format.js
-        else 
-          format.json { render json: @pet.errors.full_messages, status: :unprocessable_entity }
-          format.js { render :new }
-        end
+      #No se llena en el form
+      @pet = Pet.new(pet_params)
+      @pet.size_id = @pet.breed.size_id
+      respond_to do |format|
+          if @pet.save 
+            format.json { head :no_content }
+            format.js
+          else 
+            format.json { render json: @pet.errors.full_messages, status: :unprocessable_entity }
+            format.js { render :new }
+          end
       end
     end
     
@@ -95,12 +93,8 @@ class PetsController < ApplicationController
       @breeds = Breed.all
     end
 
-    def set_clients
-      current_user.admin? ? @clients = User.all : @clients = User.where(id: current_user.id)
-    end
-
-    def set_sizes
-      @sizes = Size.all
+    def set_users
+      current_user.admin? ? @users = User.all : @users = User.where(id: current_user.id)
     end
 
     def set_kinds
@@ -112,7 +106,7 @@ class PetsController < ApplicationController
     end
 
     def pet_params
-      params.require(:pet).permit(:name, :kind_id, :breed_id, :phase, :duration, :last_purchase, :product_id, :user_id, :size_id )
+      params.require(:pet).permit(:name, :kind_id, :breed_id, :phase, :duration, :last_purchase, :product_id, :user_id )
     end
     
 end

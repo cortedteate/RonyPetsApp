@@ -1,6 +1,6 @@
 class ProgramsController < ApplicationController
-  before_action :set_pets, only: [:index, :new, :create, :edit, :update, :destroy]
-  before_action :set_frecuencies, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :set_pets, only: [:index, :new, :create, :edit, :update, :destroy, :new_program]
+  before_action :set_frecuencies, only: [:index, :new, :create, :edit, :update, :destroy, :new_program]
 
   def index
     current_user.admin? ? @programs = Program.all.order(:id) : @programs = Program.where(user_id: current_user.id)
@@ -8,6 +8,7 @@ class ProgramsController < ApplicationController
 
   def new
     @program = Program.new
+    @program.pet_id = params[:pet_id]
   end
 
   def edit
@@ -19,8 +20,6 @@ class ProgramsController < ApplicationController
     @program.quantity_id = Quantity.where(size_id: @program.pet.size_id, phase: @program.pet.phase).pluck(:id).first
     @program.user_id = @program.pet.user_id
     
-    p @program
-
     respond_to do |format|
       if @program.save 
         format.json { head :no_content }
@@ -50,6 +49,12 @@ class ProgramsController < ApplicationController
       format.json { head :no_content }
       format.js
     end
+  end
+
+  def new_program
+    @program = Program.new
+    @program.pet_id = params[:pet_id]
+    @program.frecuency_id = params[:frecuency_id] 
   end
 
   private

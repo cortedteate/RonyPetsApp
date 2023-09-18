@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_15_205352) do
+ActiveRecord::Schema.define(version: 2023_08_22_171408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2023_08_15_205352) do
     t.integer "days"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "kinds", force: :cascade do |t|
@@ -69,6 +70,23 @@ ActiveRecord::Schema.define(version: 2023_08_15_205352) do
     t.index ["product_id"], name: "index_pets_on_product_id"
     t.index ["size_id"], name: "index_pets_on_size_id"
     t.index ["user_id"], name: "index_pets_on_user_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "pet_id"
+    t.bigint "product_id"
+    t.bigint "frecuency_id"
+    t.bigint "quantity_id"
+    t.date "initial_date"
+    t.date "delivered_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["frecuency_id"], name: "index_plans_on_frecuency_id"
+    t.index ["pet_id"], name: "index_plans_on_pet_id"
+    t.index ["product_id"], name: "index_plans_on_product_id"
+    t.index ["quantity_id"], name: "index_plans_on_quantity_id"
+    t.index ["user_id"], name: "index_plans_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -173,6 +191,11 @@ ActiveRecord::Schema.define(version: 2023_08_15_205352) do
   add_foreign_key "pets", "products"
   add_foreign_key "pets", "sizes"
   add_foreign_key "pets", "users"
+  add_foreign_key "plans", "frecuencies"
+  add_foreign_key "plans", "pets"
+  add_foreign_key "plans", "products"
+  add_foreign_key "plans", "quantities"
+  add_foreign_key "plans", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "suppliers"
   add_foreign_key "programs", "frecuencies"

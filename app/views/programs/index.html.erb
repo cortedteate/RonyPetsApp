@@ -1,58 +1,64 @@
 <!-- Begin Page Content -->
 <div class="mb-4"></div>
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Rony Pets Food Planner</h1>
-        <%= link_to new_program_path, {remote: true, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm", id: "add-cat-btn"} do %>
-            <i class="fas fa-user fa-sm text-white-50"></i> Crea un plan de alimento programado</a>
-        <% end %>
-    </div>
-
-    <div class="card shadow mb-4" style="margin-left: 20px; margin-right: 20px;">
-        <div class="card body">
-            <div class="table-responsive">
-                <table id='tablePrograms' class="table table-bordered" width="100">
-                    <thead>
-                        <tr>   
-                            <th style="vertical-align: middle; text-align: center">Mascota</th>
-                            <th style="vertical-align: middle; text-align: center">Producto</th>
-                            <th style="vertical-align: middle; text-align: center">Cantidad diaria (gramos)</th>
-                            <th style="vertical-align: middle; text-align: center">Frecuencia de entrega (dias)</th>
-                            <th style="vertical-align: middle; text-align: center">Cantidad a entregar (kg)</th>
-                            <th style="vertical-align: middle; text-align: center">Precio final</th>
-                            <th style="vertical-align: middle; text-align: center">Fecha inicial del plan</th>
-                            <th style="vertical-align: middle; text-align: center">Fecha ultima entrega realizada</th>
-                            <th style="vertical-align: middle; text-align: center">Fecha proxima entrega</th>
-                            <th style="vertical-align: middle; text-align: center">Cliente</th>
-                            <th style="vertical-align: middle; text-align: center">Accion a realizar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% @programs.each do |program| %>
-                            <tr id="program_<%= program.id %>" >
-                                <td style="vertical-align: middle; text-align: center;"><%= program.pet_id != nil ? program.pet.name : "Vacio" %></td>
-                                <td style="vertical-align: middle; text-align: center;"><%= program.product_id != nil ? program.product.name : "Vacio" %></td>
-                                <td style="vertical-align: middle; text-align: center;"><%= program.quantity_id != nil ? program.quantity.quantity : "Vacio" %></td>
-                                <td style="vertical-align: middle; text-align: center;"><%= program.frecuency_id != nil ? program.frecuency.days : "Vacio" %></td>
-                                <td style="vertical-align: middle; text-align: center;"><%= ( program.quantity.quantity * program.frecuency.days ) / 1000.0 %></td>
-                                <td style="vertical-align: middle; text-align: center;">$ <%= ((( program.quantity.quantity * program.frecuency.days ) * program.product.pound_price ) / 500).to_i %></td>
-                                <td style="vertical-align: middle; text-align: center;"><%= program.initial_date != nil ? program.initial_date : "Vacio" %></td>  
-                                <td style="vertical-align: middle; text-align: center;"><%= program.delivered_date != nil ? program.delivered_date : "Vacio" %></td>  
-                                <td style="vertical-align: middle; text-align: center;"><%= program.initial_date != nil ? program.initial_date + program.frecuency.days : "Vacio" %></td>  
-                                <td style="vertical-align: middle; text-align: center;"><%= program.user_id != nil ? program.user.first_name : "Vacio" %></td>  
-                                <td style="vertical-align: middle;">
-                                <%= link_to "Editar", edit_program_path(program), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-                                <%= link_to "Cancelar", program, remote: true, method: :delete, data: {confirm: "Desea cancelar el programa?"}, class: "btn btn-danger btn-xs" %>
-                                </td>
-                            </tr>
-                        <% end %>
-                    </tbody>
-                </table>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9">
+                <h1 class="title mb-3 text-center text-black">Planes Personalizables Que Se Ajustan a Tu Presupuesto</h1>
+                <p class="lead text-center"> Selecciona el plan para tu mascota e inicia ahora!</p>
             </div>
         </div>
     </div>
-</div>
+        
+    <div class="mb-4"></div>
 
+    <div class="container-fluid">    
+        <% @pets.each do |pet| %>
+            <div class="row"> 
+                <h1 class="h3 mb-0 text-gray-600 text-center">Para <%= pet.name %></h1>
+                <div class="row justify-content-center row-cols-1 row-cols-md-5 g-2">
+                    
+                    <% @frecuencies.each do |frecuency| %>
+
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://ronypetsproducts.s3.amazonaws.com/pets_card.jpg" class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center text-black">Plan <%= frecuency.name %></h5>
+                                    <p class="card-text text-center text-black">
+                                        <%= pet.product.name.presence || "Vacio" %> <br>
+                                        <%= Quantity.where(size_id: pet.size_id, phase: pet.phase).pluck(:quantity).first %> Grs diarios <br>
+                                        <%= ( Quantity.where(size_id: pet.size_id, phase: pet.phase).pluck(:quantity).first * frecuency.days ) / 1000.0 %> Kgs <%= frecuency.name %>es <br><br>
+                                        <p class="card-text text-center">
+                                            <%= link_to new_program_programs_path(pet_id: pet.id, frecuency_id: frecuency.id), { remote: true, class: "btn btn-primary shadow-sm", id: "add-cat-btn" } do %>
+                                                <i class="fas fa-dollar-sign text-white-50"></i> 
+                                                <%= number_with_delimiter(((( Quantity.where(size_id: pet.size_id, phase: pet.phase).pluck(:quantity).first * frecuency.days ) * pet.product.pound_price ) / 500).to_i, delimiter: '.', separator: ',') %>
+                                            <% end %>
+                                        </p>
+                                        Recibes:<br>
+                                        <% case frecuency.days %>
+                                        <% when 7 %>
+                                            <i class="fas fa-check-circle"></i> Envios automaticos<br>
+                                            <i class="fas fa-check-circle"></i> Gramera gratis<br>
+                                        <% when 15 %>
+                                            <i class="fas fa-check-circle"></i> Envios automaticos<br>
+                                            <i class="fas fa-check-circle"></i> Domicilio gratis<br>
+                                            <i class="fas fa-check-circle"></i> Gramera gratis<br>
+                                        <% when 30 %>
+                                            <i class="fas fa-check-circle"></i> Envios automaticos<br>
+                                            <i class="fas fa-check-circle"></i> Domicilio gratis<br>
+                                            <i class="fas fa-check-circle"></i> Gramera gratis<br>
+                                            <i class="fas fa-check-circle"></i> Consulta con veterinario<br>
+                                        <% end %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>                    
+                </div>
+                <div class="mb-4"></div>
+
+            </div>
+        <% end %>
+    </div>
+</div>
 <%= render 'modal_programs'%>

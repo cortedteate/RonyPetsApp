@@ -1,11 +1,23 @@
 <%= form_for @program, remote: true do |f| %>
 
     <div class="item form-group<%= @program.errors[:pet_id].any? ? ' has-error has-feedback' : '' %> "> 
-        <%= f.label :pet_id, "Elige tu mascota: "%>
-        <div class="input-group">       
-            <%= f.collection_select :pet_id, @pets, :id, :name, { prompt: "Seleccione la mascota" }, { id: 'pet-select', class:"form-control" } %>
+        <%= f.label :pet_id, "Mascota: "%>
+        <div class="input-group"> 
+            <%= f.text_field :pet_id, {:class=>"form-control", disabled: true, value: @program.pet.name } %>
+            <%= f.hidden_field :pet_id, value: @program.pet_id %>
             <% if @program.errors[:pet_id].any? %>
                 <p class="bg-danger"><%= @program.errors[:pet_id].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="item form-group<%= @program.errors[:product_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :product_id, "Alimento: "%>
+        <div class="input-group"> 
+            <%= f.text_field :product_id, {:class=>"form-control", disabled: true, value: @program.pet.product.name } %>
+            <%= f.hidden_field :product_id, value: @program.pet.product_id %>
+            <% if @program.errors[:product_id].any? %>
+                <p class="bg-danger"><%= @program.errors[:product_id].to_s[/\w(["]*)/]%></p>
             <% end %>
         </div>
     </div>
@@ -13,7 +25,8 @@
     <div class="item form-group<%= @program.errors[:frecuency_id].any? ? ' has-error has-feedback' : '' %> "> 
         <%= f.label :frecuency_id, "Cada cuanto deseas recibir el alimento (Dias): "%>
         <div class="input-group">       
-            <%= f.collection_select :frecuency_id, @frecuencies, :id, :days, { prompt: "Seleccione un valor en dias" }, { id: 'frecuency-select', class:"form-control" } %>
+            <%= f.text_field :frecuency_id, {:class=>"form-control", disabled: true, value: @program.frecuency.days } %>
+            <%= f.hidden_field :frecuency_id, value: @program.frecuency.id %>
             <% if @program.errors[:frecuency_id].any? %>
                 <p class="bg-danger"><%= @program.errors[:frecuency_id].to_s[/\w(["]*)/]%></p>
             <% end %>

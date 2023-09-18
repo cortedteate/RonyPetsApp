@@ -1,12 +1,10 @@
 <div class="mb-4"></div>
-<h1 class="h3 mb-2 text-gray-800" style="margin-left: 20px;"> Mascotas</h1>
-
-<div style="margin-left: 20px;">
-    <%= link_to new_pet_path, {remote: true, class: "btn btn-info", id: "add-cat-btn"} do %>
-    <span class="fas fa-plus-square"></span>
+<div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-left: 20px; margin-right: 20px;">
+    <h1 class="h3 mb-0 text-gray-800">Mis Mascotas</h1>
+    <%= link_to new_pet_path, {remote: true, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm", id: "add-cat-btn"} do %>
+        <i class="fas fa-paw text-white-50"></i> Crea una mascota</a>
     <% end %>
 </div>
-<br>
 
 <div class="card shadow mb-4" style="margin-left: 20px; margin-right: 20px;">
     <div class="card body">
@@ -19,8 +17,8 @@
                         <th style="text-align: center">Raza</th>
                         <th style="text-align: center">Tamaño</th>
                         <th style="text-align: center">Fase</th>
-                        <th style="text-align: center">Duracion</th>
-                        <th style="text-align: center">Ultima compra</th>
+                        <!-- <th style="text-align: center">Duracion</th>
+                        <th style="text-align: center">Ultima compra</th> -->
                         <th style="text-align: center">Producto</th>
                         <th style="text-align: center">Cliente</th>
                         <th style="text-align: center">Accion a realizar</th>
@@ -32,10 +30,10 @@
                             <td style="vertical-align: middle"><%= pet.name %></td>
                             <td style="vertical-align: middle"><%= pet.kind_id != nil ? pet.breed.kind.kind : "Vacio" %></td>
                             <td style="vertical-align: middle"><%= pet.breed_id != nil ? pet.breed.name : "Vacio" %></td>
-                            <td style="vertical-align: middle"><%= pet.size_id != nil ? pet.size.name : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= pet.size_id != nil ? pet.breed.size.name : "Vacio" %></td>
                             <td style="vertical-align: middle"><%= pet.phase %></td>  
-                            <td style="vertical-align: middle"><%= pet.duration %></td>  
-                            <td style="vertical-align: middle"><%= pet.last_purchase %></td>  
+                            <!-- <td style="vertical-align: middle"><%= pet.duration %></td>  
+                            <td style="vertical-align: middle"><%= pet.last_purchase %></td>   -->
                             <td style="vertical-align: middle"><%= pet.product_id != nil ? pet.product.name : "Vacio" %></td>
                             <td style="vertical-align: middle"><%= pet.user_id != nil ? pet.user.name : "Vacio" %></td>
                             <td style="vertical-align: middle">

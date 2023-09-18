@@ -1,0 +1,16 @@
+<%= form_for @plan, { remote: true, multipart: true } do |f| %>
+    <div class="form-group">
+        <h4 class="control-label">Revisa tu plan e inicialo!</h4>
+    </div>
+
+    <div class="item form-group<%= @plan.errors[:user_id].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :user_id, "Nombre: "%>
+        <div class="input-group">
+            <%= f.text_field :user_id, {:class=>"form-control", :placeholder=>"Introduzca el nombre del cliente"} %>
+            <% if @plan.errors[:user_id].any? %>
+                <p class="bg-danger"><%= @plan.errors[:user_id].to_s[/\w([^"]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
+<% end %>

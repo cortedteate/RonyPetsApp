@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  
-  get 'portals/index'
   root to: 'home#index'
+  
+  get 'plans/index'
+  get 'portals/index'
 
   devise_for :users, controllers: {
     registrations: 'users/registrations'
@@ -11,10 +12,16 @@ Rails.application.routes.draw do
   resources :suppliers
   resources :products
   resources :inventory
-  resources :programs
   resources :sizes
   resources :quantities
   resources :breeds
+  resources :plans
+
+  resources :programs do
+    collection do
+      get 'new_program/:pet_id/:frecuency_id', action: :new_program, as: :new_program
+    end
+  end
 
   resources :clients do
     get '/new_pet', to: 'pets#new_from_client'

@@ -1,0 +1,47 @@
+<div class="mb-4"></div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-left: 20px; margin-right: 20px;">
+    <h1 class="h3 mb-0 text-gray-800">Mis Planes</h1>
+    <%= link_to new_plan_path, {remote: true, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm", id: "add-cat-btn"} do %>
+        <i class="fas fa-paw text-white-50"></i> Crear un Plan</a>
+    <% end %>
+</div>
+
+<div class="card shadow mb-4" style="margin-left: 20px; margin-right: 20px;">
+    <div class="card body">
+        <div class="table-responsive">
+            <table id='tablePlans' class="table table-bordered" width="100">
+                <thead>
+                    <tr>   
+                        <th style="text-align: center">Cliente</th>
+                        <th style="text-align: center">Mascota</th>
+                        <th style="text-align: center">Alimento</th>
+                        <th style="text-align: center">Frecuencia de entrega</th>
+                        <th style="text-align: center">Cantidad diaria</th>
+                        <th style="text-align: center">Inicio del plan</th>
+                        <th style="text-align: center">Ultima entrega recibida</th>
+                        <th style="text-align: center">Accion a realizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @plans.each do |plan| %>
+                        <tr id="plan_<%= plan.id %>" >
+                            <td style="vertical-align: middle"><%= plan.user_id != nil ? plan.user.name : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= plan.pet_id != nil ? plan.pet.name : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= plan.product_id != nil ? plan.product.name : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= plan.frecuency_id != nil ? plan.frecuency.name : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= plan.quantity_id != nil ? plan.quantity.quantity : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= plan.initial_date != nil ? plan.initial_date : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= plan.delivered_date != nil ? plan.delivered_date : "Vacio" %></td>
+                            <td style="vertical-align: middle">
+                            <%= link_to "Editar", edit_plan_path(plan), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+                            <%= link_to "Borrar", plan, remote: true, method: :delete, data: {confirm: "Desea cancelar el plan?"}, class: "btn btn-danger btn-xs" %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%= render 'modal_plans'%>
