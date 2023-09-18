@@ -1,0 +1,11 @@
+$(document).ready(function() {
+// Add the dialog title
+    $('#modal-programs-title').html("Editar plan");
+ 
+// Render the new form
+    $('.modal-body-programs').html('<%= j render("form") %>');
+ 
+// Show the dynamic dialog
+    $('#modalPrograms').modal("show");
+
+});

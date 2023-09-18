@@ -74,6 +74,15 @@
         </div>
     </div>
 
+    <div class="item form-group<%= @product.errors[:pound_price].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :pound_price, "Precio por libra: "%>
+        <div class="input-group">
+            <%= f.number_field :pound_price, {:class=>"form-control", :placeholder=>"Introduzca el precio de venta por libra"} %>
+            <% if @product.errors[:pound_price].any? %>
+                <p class="bg-danger"><%= @product.errors[:pound_price].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
 
     <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
         <%= f.submit @product.new_record? ? "Crear producto" : "Actualizar producto", :class => "btn btn-success"%>

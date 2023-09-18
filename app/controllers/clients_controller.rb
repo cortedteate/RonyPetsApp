@@ -3,19 +3,18 @@ class ClientsController < ApplicationController
     before_action :set_pets, only: [:index, :edit, :update, :destroy]
 
       def index
-        @clients = Client.all.order(:id)
+        @clients = User.all.order(:id)
       end
     
       def new
-        @client = Client.new 
+        @client = User.new 
       end
     
       def edit
       end
     
       def create
-        @client = Client.new(client_params)
-        p @client
+        @client = User.new(client_params)
         respond_to do |format|
           if @client.save 
             format.json { head :no_content }
@@ -51,7 +50,7 @@ class ClientsController < ApplicationController
       private
     
       def set_client
-        @client = Client.find(params[:id])
+        @client = User.find(params[:id])
       end
 
       def set_pets

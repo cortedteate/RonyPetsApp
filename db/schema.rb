@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_11_070407) do
+ActiveRecord::Schema.define(version: 2023_08_22_171408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(version: 2023_08_11_070407) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "frecuencies", force: :cascade do |t|
+    t.integer "days"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+  end
+
   create_table "kinds", force: :cascade do |t|
     t.string "kind"
     t.datetime "created_at", null: false
@@ -51,18 +58,35 @@ ActiveRecord::Schema.define(version: 2023_08_11_070407) do
     t.integer "duration"
     t.date "last_purchase"
     t.bigint "product_id"
-    t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "breed_id"
     t.string "phase"
     t.bigint "size_id"
     t.bigint "kind_id"
+    t.bigint "user_id"
     t.index ["breed_id"], name: "index_pets_on_breed_id"
-    t.index ["client_id"], name: "index_pets_on_client_id"
     t.index ["kind_id"], name: "index_pets_on_kind_id"
     t.index ["product_id"], name: "index_pets_on_product_id"
     t.index ["size_id"], name: "index_pets_on_size_id"
+    t.index ["user_id"], name: "index_pets_on_user_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "pet_id"
+    t.bigint "product_id"
+    t.bigint "frecuency_id"
+    t.bigint "quantity_id"
+    t.date "initial_date"
+    t.date "delivered_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["frecuency_id"], name: "index_plans_on_frecuency_id"
+    t.index ["pet_id"], name: "index_plans_on_pet_id"
+    t.index ["product_id"], name: "index_plans_on_product_id"
+    t.index ["quantity_id"], name: "index_plans_on_quantity_id"
+    t.index ["user_id"], name: "index_plans_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -75,8 +99,26 @@ ActiveRecord::Schema.define(version: 2023_08_11_070407) do
     t.bigint "supplier_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "pound_price"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["supplier_id"], name: "index_products_on_supplier_id"
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.bigint "pet_id"
+    t.bigint "product_id"
+    t.bigint "quantity_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "frecuency_id"
+    t.date "initial_date"
+    t.date "delivered_date"
+    t.index ["frecuency_id"], name: "index_programs_on_frecuency_id"
+    t.index ["pet_id"], name: "index_programs_on_pet_id"
+    t.index ["product_id"], name: "index_programs_on_product_id"
+    t.index ["quantity_id"], name: "index_programs_on_quantity_id"
+    t.index ["user_id"], name: "index_programs_on_user_id"
   end
 
   create_table "quantities", force: :cascade do |t|
@@ -124,6 +166,9 @@ ActiveRecord::Schema.define(version: 2023_08_11_070407) do
     t.string "last_name", default: "", null: false
     t.string "image"
     t.boolean "admin", default: false
+    t.string "name"
+    t.string "address"
+    t.string "phone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -142,12 +187,22 @@ ActiveRecord::Schema.define(version: 2023_08_11_070407) do
   add_foreign_key "breeds", "kinds"
   add_foreign_key "breeds", "sizes"
   add_foreign_key "pets", "breeds"
-  add_foreign_key "pets", "clients", on_delete: :cascade
   add_foreign_key "pets", "kinds"
   add_foreign_key "pets", "products"
   add_foreign_key "pets", "sizes"
+  add_foreign_key "pets", "users"
+  add_foreign_key "plans", "frecuencies"
+  add_foreign_key "plans", "pets"
+  add_foreign_key "plans", "products"
+  add_foreign_key "plans", "quantities"
+  add_foreign_key "plans", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "suppliers"
+  add_foreign_key "programs", "frecuencies"
+  add_foreign_key "programs", "pets"
+  add_foreign_key "programs", "products"
+  add_foreign_key "programs", "quantities"
+  add_foreign_key "programs", "users"
   add_foreign_key "quantities", "sizes"
   add_foreign_key "warehouse_records", "products", column: "products_id"
   add_foreign_key "warehouse_records", "suppliers"

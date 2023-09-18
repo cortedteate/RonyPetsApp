@@ -1,0 +1,64 @@
+<!-- Begin Page Content -->
+<div class="mb-4"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9">
+                <h1 class="title mb-3 text-center text-black">Planes Personalizables Que Se Ajustan a Tu Presupuesto</h1>
+                <p class="lead text-center"> Selecciona el plan para tu mascota e inicia ahora!</p>
+            </div>
+        </div>
+    </div>
+        
+    <div class="mb-4"></div>
+
+    <div class="container-fluid">    
+        <% @pets.each do |pet| %>
+            <div class="row"> 
+                <h1 class="h3 mb-0 text-gray-600 text-center">Para <%= pet.name %></h1>
+                <div class="row justify-content-center row-cols-1 row-cols-md-5 g-2">
+                    
+                    <% @frecuencies.each do |frecuency| %>
+
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://ronypetsproducts.s3.amazonaws.com/pets_card.jpg" class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center text-black">Plan <%= frecuency.name %></h5>
+                                    <p class="card-text text-center text-black">
+                                        <%= pet.product.name.presence || "Vacio" %> <br>
+                                        <%= Quantity.where(size_id: pet.size_id, phase: pet.phase).pluck(:quantity).first %> Grs diarios <br>
+                                        <%= ( Quantity.where(size_id: pet.size_id, phase: pet.phase).pluck(:quantity).first * frecuency.days ) / 1000.0 %> Kgs <%= frecuency.name %>es <br><br>
+                                        <p class="card-text text-center">
+                                            <%= link_to new_program_programs_path(pet_id: pet.id, frecuency_id: frecuency.id), { remote: true, class: "btn btn-primary shadow-sm", id: "add-cat-btn" } do %>
+                                                <i class="fas fa-dollar-sign text-white-50"></i> 
+                                                <%= number_with_delimiter(((( Quantity.where(size_id: pet.size_id, phase: pet.phase).pluck(:quantity).first * frecuency.days ) * pet.product.pound_price ) / 500).to_i, delimiter: '.', separator: ',') %>
+                                            <% end %>
+                                        </p>
+                                        Recibes:<br>
+                                        <% case frecuency.days %>
+                                        <% when 7 %>
+                                            <i class="fas fa-check-circle"></i> Envios automaticos<br>
+                                            <i class="fas fa-check-circle"></i> Gramera gratis<br>
+                                        <% when 15 %>
+                                            <i class="fas fa-check-circle"></i> Envios automaticos<br>
+                                            <i class="fas fa-check-circle"></i> Domicilio gratis<br>
+                                            <i class="fas fa-check-circle"></i> Gramera gratis<br>
+                                        <% when 30 %>
+                                            <i class="fas fa-check-circle"></i> Envios automaticos<br>
+                                            <i class="fas fa-check-circle"></i> Domicilio gratis<br>
+                                            <i class="fas fa-check-circle"></i> Gramera gratis<br>
+                                            <i class="fas fa-check-circle"></i> Consulta con veterinario<br>
+                                        <% end %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>                    
+                </div>
+                <div class="mb-4"></div>
+
+            </div>
+        <% end %>
+    </div>
+</div>
+<%= render 'modal_programs'%>
