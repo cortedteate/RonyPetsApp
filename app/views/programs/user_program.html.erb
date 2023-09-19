@@ -5,7 +5,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Rony Pets Food Planner</h1>
-        <%= link_to new_program_path, {remote: true, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm", id: "add-cat-btn"} do %>
+        <%= link_to programs_path, {class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm", id: "add-cat-btn"} do %>
             <i class="fas fa-user fa-sm text-white-50"></i> Crea un plan de alimento programado</a>
         <% end %>
     </div>
@@ -40,7 +40,7 @@
                                 <td style="vertical-align: middle; text-align: center;">$ <%= ((( program.quantity.quantity * program.frecuency.days ) * program.product.pound_price ) / 500).to_i %></td>
                                 <td style="vertical-align: middle; text-align: center;"><%= program.initial_date != nil ? program.initial_date : "Vacio" %></td>  
                                 <td style="vertical-align: middle; text-align: center;"><%= program.delivered_date != nil ? program.delivered_date : "Vacio" %></td>  
-                                <td style="vertical-align: middle; text-align: center;"><%= program.initial_date != nil ? program.initial_date + program.frecuency.days : "Vacio" %></td>  
+                                <td style="vertical-align: middle; text-align: center;"><%= program.delivered_date != nil ? program.initial_date + program.frecuency.days : program.initial_date %></td>  
                                 <td style="vertical-align: middle; text-align: center;"><%= program.user_id != nil ? program.user.first_name : "Vacio" %></td>  
                                 <td style="vertical-align: middle;">
                                 <%= link_to "Editar", edit_program_path(program), html_options = {class: "btn btn-info btn-xs", remote: true} %>

@@ -34,6 +34,16 @@
         </div>
     </div>
 
+    <div class="item form-group<%= @product.errors[:weight].any? ? ' has-error has-feedback' : '' %> "> 
+        <%= f.label :weight, "Peso(Kg): "%>
+        <div class="input-group">
+            <%= f.number_field :weight, {:class=>"form-control", :placeholder=>"Peso en kilogramos"} %>
+            <% if @product.errors[:weight].any? %>
+                <p class="bg-danger"><%= @product.errors[:weight].to_s[/\w(["]*)/]%></p>
+            <% end %>
+        </div>
+    </div>
+
     <div class="item form-group<%= @product.errors[:existence].any? ? ' has-error has-feedback' : '' %> "> 
         <%= f.label :existence, "Cantidad: "%>
         <div class="input-group">
@@ -70,16 +80,6 @@
             <%= collection_select(:product, :supplier_id, @suppliers, :id, :name, {:prompt => 'Seleccione una proveedor'}, { class: "form-control" }) %>
             <% if @product.errors[:supplier_id].any? %>
                 <p class="bg-danger"><%= @product.errors[:supplier_id].to_s[/\w(["]*)/]%></p>
-            <% end %>
-        </div>
-    </div>
-
-    <div class="item form-group<%= @product.errors[:pound_price].any? ? ' has-error has-feedback' : '' %> "> 
-        <%= f.label :pound_price, "Precio por libra: "%>
-        <div class="input-group">
-            <%= f.number_field :pound_price, {:class=>"form-control", :placeholder=>"Introduzca el precio de venta por libra"} %>
-            <% if @product.errors[:pound_price].any? %>
-                <p class="bg-danger"><%= @product.errors[:pound_price].to_s[/\w(["]*)/]%></p>
             <% end %>
         </div>
     </div>

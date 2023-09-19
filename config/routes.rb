@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :programs do
     collection do
       get 'new_program/:pet_id/:frecuency_id', action: :new_program, as: :new_program
+      get 'user_programs/:user_id', action: :user_program, as: :user_program
     end
   end
 

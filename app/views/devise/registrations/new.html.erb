@@ -16,6 +16,14 @@
   </div>
 
   <div class="form-group">
+    <%= f.text_field :phone, autofocus: true, autocomplete: "phone", class: "form-control form-control-user", placeholder:"Telefono...."%>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :address, autofocus: true, autocomplete: "address", class: "form-control form-control-user", placeholder:"Direccion...."%>
+  </div>
+
+  <div class="form-group">
     <% if @minimum_password_length %>
     <em>( minimo <%= @minimum_password_length %> caracteres)</em>
     <% end %><br />
