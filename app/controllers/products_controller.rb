@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
     
       def create
         @product = Product.new(product_params)
+        @product.pound_price = @product.price / ( @product.weight * 2 )
     
         respond_to do |format|
           if @product.save 
@@ -29,6 +30,7 @@ class ProductsController < ApplicationController
       end
     
       def update
+        @product.pound_price = @product.price / ( @product.weight * 2 )
         respond_to do |format|
           if @product.update(product_params) 
             format.json { head :no_content }
@@ -64,7 +66,7 @@ class ProductsController < ApplicationController
       end
     
       def product_params
-        params.require(:product).permit(:name, :description, :existence, :price, :image, :category_id, :supplier_id, :pound_price )
+        params.require(:product).permit(:name, :description, :existence, :price, :image, :category_id, :supplier_id, :weight )
       end
     
 end

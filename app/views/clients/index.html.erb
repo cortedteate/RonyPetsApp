@@ -22,7 +22,7 @@
                 <tbody>
                     <% @clients.each do |client| %>
                         <tr id="client_<%= client.id %>" >
-                            <td style="vertical-align: middle"><%= client.name %></td>
+                            <td style="vertical-align: middle"><%= client.first_name + " " +  client.last_name %></td>
                             <td style="vertical-align: middle"><%= client.address %></td>
                             <td style="vertical-align: middle"><%= client.phone %></td>
                             <td style="vertical-align: middle">                               

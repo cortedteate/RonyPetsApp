@@ -57,6 +57,10 @@ class ProgramsController < ApplicationController
     @program.frecuency_id = params[:frecuency_id] 
   end
 
+  def user_program
+    current_user.admin? ? @programs = Program.all.order(:id) : @programs = Program.where(user_id: current_user.id)
+  end
+
   private
 
   def set_pets
@@ -68,7 +72,7 @@ class ProgramsController < ApplicationController
   end
 
   def program_params
-    params.require(:program).permit(:pet_id, :product_id, :quantity_id, :frecuency_id, :user_id, :initial_date)
+    params.require(:program).permit(:user_id, :pet_id, :product_id, :quantity_id, :frecuency_id, :user_id, :initial_date)
   end
 
 end

@@ -87,7 +87,7 @@
                 <% if current_user.admin? %>
                     <%= collection_select(:pet, :user_id, @users, :id, :name, {:prompt => 'Seleccione un cliente'}, { class: "form-control" }) %>
                 <% else %>
-                    <%= f.text_field :user_id, {:class=>"form-control", disabled: true, value: current_user.name } %>
+                    <%= f.text_field :user_id, {:class=>"form-control", disabled: true, value: current_user.first_name } %>
                     <%= f.hidden_field :user_id, value: current_user.id %>
                 <% end %>
             <% if @pet.errors[:user_id].any? %>

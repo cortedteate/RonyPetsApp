@@ -35,7 +35,7 @@
                             <!-- <td style="vertical-align: middle"><%= pet.duration %></td>  
                             <td style="vertical-align: middle"><%= pet.last_purchase %></td>   -->
                             <td style="vertical-align: middle"><%= pet.product_id != nil ? pet.product.name : "Vacio" %></td>
-                            <td style="vertical-align: middle"><%= pet.user_id != nil ? pet.user.name : "Vacio" %></td>
+                            <td style="vertical-align: middle"><%= pet.user_id != nil ? pet.user.first_name : "Vacio" %></td>
                             <td style="vertical-align: middle">
                             <%= link_to "Editar", edit_pet_path(pet), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                             <%= link_to "Borrar", pet, remote: true, method: :delete, data: {confirm: "Desea borrar la mascota #{pet.name}?"}, class: "btn btn-danger btn-xs" %>

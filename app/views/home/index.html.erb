@@ -29,7 +29,7 @@
         </div>
         <div class="col">
             <div class="card h-100">
-                <a href= <%= plans_path %>>
+                <a href= <%= current_user ? user_program_programs_path(user_id: current_user.id) : programs_path %>>
                     <img src="https://ronypetsproducts.s3.amazonaws.com/plan_card.jpg" class="card-img-top align-center" alt="Tu plan"/>
                     <div class="card-body">
                         <h5 class="card-title text-black">Tu Plan</h5>

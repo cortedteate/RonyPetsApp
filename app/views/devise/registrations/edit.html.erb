@@ -11,6 +11,14 @@
     <%= f.text_field :last_name, autofocus: true, autocomplete: "name",class: "form-control form-control-user", placeholder:"Nuevo apellido" %>
   </div>
 
+  <div class="form-group">
+    <%= f.text_field :phone, autofocus: true, autocomplete: "phone",class: "form-control form-control-user", placeholder:"Nuevo telefono" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :address, autofocus: true, autocomplete: "address",class: "form-control form-control-user", placeholder:"Nueva direccion" %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

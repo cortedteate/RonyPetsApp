@@ -16,11 +16,13 @@
                         <th style="text-align: center">Imagen</th>
                         <th style="text-align: center">Nombre</th>
                         <th style="text-align: center">Descripcion</th>
+                        <th style="text-align: center">Peso(Kg)</th>
                         <th style="text-align: center">Existencia</th>
                         <th style="text-align: center">Precio</th>
+                        <th style="text-align: center">Precio por Libra</th>
                         <th style="text-align: center">Categoria</th>
                         <th style="text-align: center">Proveedor</th>
-                        <th style="text-align: center">Precio por Libra</th>
+                        
                         <th style="text-align: center">Accion a realizar</th>
                     </tr>
                 </thead>
@@ -30,11 +32,12 @@
                             <td style="text-align: center"><%= image_tag(product.image.url, size: "40x50", class: "rounded-circle") if product.image? %></td>
                             <td style="vertical-align: middle"><%= product.name %></td>
                             <td style="vertical-align: middle"><%= product.description%></td>
+                            <td style="vertical-align: middle"><%= product.weight%></td>
                             <td style="vertical-align: middle"><%= product.existence %></td>
-                            <td style="vertical-align: middle">$<%= product.price.to_i %></td>  
+                            <td style="vertical-align: middle">$<%= product.price.to_i %></td>
+                            <td style="vertical-align: middle">$<%= product.pound_price.to_i %></td> 
                             <td style="vertical-align: middle"><%= product.category != nil ? product.category.name : "Vacio" %></td>
                             <td style="vertical-align: middle"><%= product.supplier != nil ? product.supplier.name : "Vacio" %></td>
-                            <td style="vertical-align: middle">$<%= product.pound_price.to_i %></td>  
                             <td style="vertical-align: middle">
                             <%= link_to "Editar", edit_product_path(product), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                             <%= link_to "Borrar", product, remote: true, method: :delete, data: {confirm: "Desea borrar el producto #{product.name}?"}, class: "btn btn-danger btn-xs" %>

@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
     before_action :set_pets, only: [:index, :edit, :update, :destroy]
 
       def index
-        @clients = User.all.order(:id)
+        @clients = User.where(admin: false).order(:id)
       end
     
       def new
@@ -58,7 +58,7 @@ class ClientsController < ApplicationController
       end
     
       def client_params
-        params.require(:client).permit(:name, :address, :phone)
+        params.require(:client).permit(:first_name, :address, :phone)
       end
     
 

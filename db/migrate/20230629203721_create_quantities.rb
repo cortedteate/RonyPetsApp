@@ -1,6 +1,6 @@
-class CreateSizes < ActiveRecord::Migration[5.2]
+class CreateQuantities < ActiveRecord::Migration[5.2]
   def change
-    create_table :quantities do |t|
+    create_table :sizes do |t|
       t.string :type
       t.string :weight
       t.string :phase
